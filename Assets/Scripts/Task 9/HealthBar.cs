@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(Slider))]
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Character _character;
@@ -12,18 +13,19 @@ public class HealthBar : MonoBehaviour
     private void Start()
     {
         healthBar = GetComponent<Slider>();
+        StartCoroutine(ChangeHealth());
     }
 
-    private void Update()
+    private IEnumerator ChangeHealth()
     {
-        ChangeHealth();
-    }
-
-    public void ChangeHealth()
-    {
-        if (healthBar.value != _character._healthBarValue)
+        while (true)
         {
-            healthBar.value = Mathf.MoveTowards(healthBar.value, _character._healthBarValue, _speed * Time.deltaTime);
+            if (healthBar.value != _character._currentHealth)
+            {
+                healthBar.value = Mathf.MoveTowards(healthBar.value, _character._currentHealth, _speed * Time.deltaTime);
+            }
+
+            yield return new WaitForEndOfFrame();
         }
     }
 }
