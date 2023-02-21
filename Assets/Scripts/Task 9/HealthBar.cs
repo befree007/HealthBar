@@ -16,10 +16,10 @@ public class HealthBar : MonoBehaviour
 
     private void Update()
     {
-        HealthBarChange();
+        ChangeHealth();
     }
 
-    public void HealthBarChange()
+    public void ChangeHealth()
     {
         if (healthBar.value != _character._healthBarValue)
         {

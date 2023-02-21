@@ -603,7 +603,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1923651648}
         m_TargetAssemblyTypeName: Character, Assembly-CSharp
-        m_MethodName: AddHealth
+        m_MethodName: Health
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -815,7 +815,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1923651648}
         m_TargetAssemblyTypeName: Character, Assembly-CSharp
-        m_MethodName: RemoveHealth
+        m_MethodName: Damage
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1200,7 +1200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a40e59b52935c0d4b834eac97a34d76f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _health: {fileID: 1923651649}
   _value: 10
   _healthBarValue: 0
 --- !u!114 &1923651649

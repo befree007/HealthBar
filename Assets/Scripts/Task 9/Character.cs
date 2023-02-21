@@ -5,21 +5,20 @@ using UnityEngine.UI;
 
 public class Character : MonoBehaviour
 {
-    [SerializeField] private HealthBar _health;
     [SerializeField] private float _value;    
     [HideInInspector] public float _healthBarValue;
 
     private void Start()
     {
-        _healthBarValue = _health.healthBar.value;
+        _healthBarValue = GetComponent<Slider>().value;
     }
 
-    public void AddHealth()
+    public void Health()
     {
         _healthBarValue += _value;
     }
 
-    public void RemoveHealth()
+    public void Damage()
     {
         _healthBarValue -= _value;
     }
