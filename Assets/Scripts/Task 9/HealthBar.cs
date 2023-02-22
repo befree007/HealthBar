@@ -18,14 +18,13 @@ public class HealthBar : MonoBehaviour
 
     private IEnumerator ChangeHealth()
     {
-        while (true)
+        if (healthBar.value != _character.CurrentHealth)
         {
-            if (healthBar.value != _character._currentHealth)
-            {
-                healthBar.value = Mathf.MoveTowards(healthBar.value, _character._currentHealth, _speed * Time.deltaTime);
-            }
-
-            yield return new WaitForEndOfFrame();
+            healthBar.value = Mathf.MoveTowards(healthBar.value, _character.CurrentHealth, _speed * Time.deltaTime);
         }
+
+        yield return new WaitUntil(() => healthBar.value != _character.CurrentHealth);
+
+        yield return StartCoroutine(ChangeHealth());
     }
 }

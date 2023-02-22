@@ -603,7 +603,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1923651648}
         m_TargetAssemblyTypeName: Character, Assembly-CSharp
-        m_MethodName: Health
+        m_MethodName: Heal
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1201,7 +1201,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _value: 10
-  _healthBarValue: 0
 --- !u!114 &1923651649
 MonoBehaviour:
   m_ObjectHideFlags: 0

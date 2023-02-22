@@ -7,38 +7,40 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
     [SerializeField] private float _value;
+    private Slider _healthBar;
     private float _maxHealth;
     private float _minHealth;
-    [HideInInspector] public float _currentHealth;
+    [HideInInspector] public float CurrentHealth { get; private set; }
 
     private void Start()
     {
-        _currentHealth = GetComponent<Slider>().value;
-        _maxHealth = GetComponent<Slider>().maxValue;
-        _minHealth = GetComponent<Slider>().minValue;
+        _healthBar = GetComponent<Slider>();
+        CurrentHealth = _healthBar.value;
+        _maxHealth = _healthBar.maxValue;
+        _minHealth = _healthBar.minValue;
     }
 
-    public void Health()
+    public void Heal()
     {
-        if (_currentHealth > _maxHealth)
+        if (CurrentHealth > _maxHealth)
         {
-            _currentHealth = _maxHealth;
+            CurrentHealth = _maxHealth;
         }
         else
         {
-            _currentHealth += _value;
+            CurrentHealth += _value;
         }
     }
 
     public void Damage()
     {
-        if (_currentHealth < _minHealth)
+        if (CurrentHealth < _minHealth)
         {
-            _currentHealth = _minHealth;
+            CurrentHealth = _minHealth;
         }
         else
         {
-            _currentHealth -= _value;
+            CurrentHealth -= _value;
         }
     }
 }
