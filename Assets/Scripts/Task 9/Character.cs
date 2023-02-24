@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(Slider))]
 public class Character : MonoBehaviour
 {
     [SerializeField] private float _value;
+    [SerializeField] private UnityEvent _healthChanged;
     private Slider _healthBar;
     private float _maxHealth;
-    private float _minHealth;
+    private float _minHealth;    
     [HideInInspector] public float CurrentHealth { get; private set; }
 
     private void Start()
@@ -22,25 +24,15 @@ public class Character : MonoBehaviour
 
     public void Heal()
     {
-        if (CurrentHealth > _maxHealth)
-        {
-            CurrentHealth = _maxHealth;
-        }
-        else
-        {
-            CurrentHealth += _value;
-        }
+        CurrentHealth = Mathf.Clamp(CurrentHealth + _value, _minHealth, _maxHealth);
+
+        _healthChanged.Invoke();
     }
 
     public void Damage()
     {
-        if (CurrentHealth < _minHealth)
-        {
-            CurrentHealth = _minHealth;
-        }
-        else
-        {
-            CurrentHealth -= _value;
-        }
+        CurrentHealth = Mathf.Clamp(CurrentHealth - _value, _minHealth, _maxHealth);
+
+        _healthChanged.Invoke();
     }
 }
