@@ -8,11 +8,12 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
     [SerializeField] private float _value;
-    [SerializeField] private UnityEvent _healthChanged;
+    //[SerializeField] private UnityEvent _healthChanged;
     private Slider _healthBar;
     private float _maxHealth;
     private float _minHealth;    
     [HideInInspector] public float CurrentHealth { get; private set; }
+    
 
     private void Start()
     {
@@ -26,13 +27,13 @@ public class Character : MonoBehaviour
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth + _value, _minHealth, _maxHealth);
 
-        _healthChanged.Invoke();
+        HealthBar.onHealthChanged?.Invoke();
     }
 
     public void Damage()
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth - _value, _minHealth, _maxHealth);
 
-        _healthChanged.Invoke();
+        HealthBar.onHealthChanged?.Invoke();
     }
 }
