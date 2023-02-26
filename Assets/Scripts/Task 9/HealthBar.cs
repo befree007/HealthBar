@@ -10,11 +10,21 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Character _character;
     [SerializeField] private float _speed;
     private Slider healthBar;
-    private static Coroutine changeHealth;
+    private Coroutine changeHealth;
 
     private void Start()
     {
         healthBar = GetComponent<Slider>();
+    }
+
+    private void OnEnable()
+    {
+        _character.onHealthChanged += StartChangeHealth;
+    }
+
+    private void OnDisable()
+    {
+        _character.onHealthChanged -= StartChangeHealth;
     }
 
     public void StartChangeHealth()
