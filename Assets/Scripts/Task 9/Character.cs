@@ -8,32 +8,43 @@ using UnityEngine.UI;
 public class Character : MonoBehaviour
 {
     [SerializeField] private float _value;
-    //[SerializeField] private UnityEvent _healthChanged;
-    private Slider _healthBar;
+    [SerializeField] private HealthBar _healthBar;
+    private Slider _startHealthBar;
     private float _maxHealth;
     private float _minHealth;    
+    public UnityAction onHealthChanged;
     [HideInInspector] public float CurrentHealth { get; private set; }
     
 
     private void Start()
     {
-        _healthBar = GetComponent<Slider>();
-        CurrentHealth = _healthBar.value;
-        _maxHealth = _healthBar.maxValue;
-        _minHealth = _healthBar.minValue;
+        _startHealthBar = GetComponent<Slider>();
+        CurrentHealth = _startHealthBar.value;
+        _maxHealth = _startHealthBar.maxValue;
+        _minHealth = _startHealthBar.minValue;
+    }
+
+    private void OnEnable()
+    {
+        onHealthChanged += _healthBar.StartChangeHealth;
+    }
+
+    private void OnDisable()
+    {
+        onHealthChanged -= _healthBar.StartChangeHealth;
     }
 
     public void Heal()
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth + _value, _minHealth, _maxHealth);
 
-        HealthBar.onHealthChanged?.Invoke();
+        onHealthChanged?.Invoke();
     }
 
     public void Damage()
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth - _value, _minHealth, _maxHealth);
 
-        HealthBar.onHealthChanged?.Invoke();
+        onHealthChanged?.Invoke();
     }
 }

@@ -10,22 +10,11 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Character _character;
     [SerializeField] private float _speed;
     private Slider healthBar;
-    private Coroutine changeHealth;
-    public static UnityAction onHealthChanged;
+    private static Coroutine changeHealth;
 
     private void Start()
     {
         healthBar = GetComponent<Slider>();
-    }
-
-    private void OnEnable()
-    {
-        onHealthChanged += StartChangeHealth;
-    }
-
-    private void OnDisable()
-    {
-        onHealthChanged -= StartChangeHealth;
     }
 
     public void StartChangeHealth()
@@ -38,7 +27,7 @@ public class HealthBar : MonoBehaviour
         changeHealth = StartCoroutine(ChangeHealth());
     }
 
-    private IEnumerator ChangeHealth()
+    public IEnumerator ChangeHealth()
     {
         while (healthBar.value != _character.CurrentHealth)
         {
