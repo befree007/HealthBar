@@ -12,7 +12,7 @@ public class Character : MonoBehaviour
     private Slider _startHealthBar;
     private float _maxHealth;
     private float _minHealth;    
-    public UnityAction onHealthChanged;
+    public event UnityAction HealthChanged;
     public float CurrentHealth { get; private set; }
     
 
@@ -28,13 +28,13 @@ public class Character : MonoBehaviour
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth + _value, _minHealth, _maxHealth);
 
-        onHealthChanged?.Invoke();
+        HealthChanged?.Invoke();
     }
 
     public void Damage()
     {
         CurrentHealth = Mathf.Clamp(CurrentHealth - _value, _minHealth, _maxHealth);
 
-        onHealthChanged?.Invoke();
+        HealthChanged?.Invoke();
     }
 }

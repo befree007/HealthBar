@@ -9,41 +9,41 @@ public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Character _character;
     [SerializeField] private float _speed;
-    private Slider healthBar;
-    private Coroutine changeHealth;
+    private Slider _healthBar;
+    private Coroutine _changeHealth;
 
     private void Start()
     {
-        healthBar = GetComponent<Slider>();
+        _healthBar = GetComponent<Slider>();
     }
 
     private void OnEnable()
     {
-        _character.onHealthChanged += StartChangeHealth;
+        _character.HealthChanged += StartChangeHealth;
     }
 
     private void OnDisable()
     {
-        _character.onHealthChanged -= StartChangeHealth;
+        _character.HealthChanged -= StartChangeHealth;
     }
 
-    public void StartChangeHealth()
+    private void StartChangeHealth()
     {
-        if (changeHealth != null)
+        if (_changeHealth != null)
         {
-            StopCoroutine(changeHealth);
+            StopCoroutine(_changeHealth);
         }
 
-        changeHealth = StartCoroutine(ChangeHealth());
+        _changeHealth = StartCoroutine(ChangeHealth());
     }
 
     public IEnumerator ChangeHealth()
     {
-        while (healthBar.value != _character.CurrentHealth)
+        while (_healthBar.value != _character.CurrentHealth)
         {
-            if (healthBar.value != _character.CurrentHealth)
+            if (_healthBar.value != _character.CurrentHealth)
             {
-                healthBar.value = Mathf.MoveTowards(healthBar.value, _character.CurrentHealth, _speed * Time.deltaTime);
+                _healthBar.value = Mathf.MoveTowards(_healthBar.value, _character.CurrentHealth, _speed * Time.deltaTime);
             }
 
             yield return null;
